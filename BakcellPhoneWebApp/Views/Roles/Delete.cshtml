@@ -1,0 +1,27 @@
+﻿@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+
+<h3>Silməyə əminsiniz?</h3>
+<div>
+    <h4>Rol</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Ad
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Sil" class="btn btn-default" /> |
+            @Html.ActionLink("Listə qayıt", "Index")
+        </div>
+    }
+</div>

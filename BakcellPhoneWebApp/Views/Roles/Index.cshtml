@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>
+
+<p>
+    @Html.ActionLink("Yeni yarat", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ad
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.ActionLink("Redaktə et", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Detallar", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Sil", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
