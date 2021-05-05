@@ -176,28 +176,23 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105031603075_İnitial.cs" />
-    <Compile Include="Migrations\202105031603075_İnitial.Designer.cs">
-      <DependentUpon>202105031603075_İnitial.cs</DependentUpon>
+    <Compile Include="Migrations\202105041717057_Initial.cs" />
+    <Compile Include="Migrations\202105041717057_Initial.Designer.cs">
+      <DependentUpon>202105041717057_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202105031655116_Test.cs" />
-    <Compile Include="Migrations\202105031655116_Test.Designer.cs">
-      <DependentUpon>202105031655116_Test.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105031929529_NewPropertiestoUser.cs" />
-    <Compile Include="Migrations\202105031929529_NewPropertiestoUser.Designer.cs">
-      <DependentUpon>202105031929529_NewPropertiestoUser.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105041620499_OrderAdded.cs" />
-    <Compile Include="Migrations\202105041620499_OrderAdded.Designer.cs">
-      <DependentUpon>202105041620499_OrderAdded.cs</DependentUpon>
+    <Compile Include="Migrations\202105051331110_OrderUpdated.cs" />
+    <Compile Include="Migrations\202105051331110_OrderUpdated.Designer.cs">
+      <DependentUpon>202105051331110_OrderUpdated.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Courier.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\RoleViewModel.cs" />
+    <Compile Include="Models\Vendor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -262,6 +257,9 @@
     <Content Include="Views\Roles\Create.cshtml" />
     <Content Include="Views\Roles\Delete.cshtml" />
     <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Account\AddCourier.cshtml" />
+    <Content Include="Views\Account\AddVendor.cshtml" />
+    <Content Include="Views\Account\AddManager.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -280,17 +278,11 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105031603075_İnitial.resx">
-      <DependentUpon>202105031603075_İnitial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105041717057_Initial.resx">
+      <DependentUpon>202105041717057_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105031655116_Test.resx">
-      <DependentUpon>202105031655116_Test.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105031929529_NewPropertiestoUser.resx">
-      <DependentUpon>202105031929529_NewPropertiestoUser.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105041620499_OrderAdded.resx">
-      <DependentUpon>202105041620499_OrderAdded.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202105051331110_OrderUpdated.resx">
+      <DependentUpon>202105051331110_OrderUpdated.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

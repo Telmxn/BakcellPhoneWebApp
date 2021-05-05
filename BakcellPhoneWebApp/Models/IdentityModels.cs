@@ -17,10 +17,6 @@ namespace BakcellPhoneWebApp.Models
         public string Surname { get; set; }
         [Display(Name = "Balans")]
         public decimal Balance { get; set; }
-        [Display(Name = "Ünvan")]
-        public string? Location { get; set; }
-
-        public virtual ICollection<Order> Orders { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -7,13 +7,13 @@ namespace BakcellPhoneWebApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class İnitial : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(İnitial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202105031603075_İnitial"; }
+            get { return "202105041717057_Initial"; }
         }
         
         string IMigrationMetadata.Source

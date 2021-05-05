@@ -44,17 +44,17 @@ namespace BakcellPhoneWebApp.Models
         public string ManagerId { get; set; }
         [ForeignKey("ManagerId")]
         [Display(Name = "Menecer")]
-        public virtual ApplicationUser Manager { get; set; }
+        public virtual Manager Manager { get; set; }
 
         public string VendorId { get; set; }
         [ForeignKey("VendorId")]
         [Display(Name = "Satıcı")]
-        public virtual ApplicationUser Vendor { get; set; }
+        public virtual Vendor Vendor { get; set; }
 
         public string CourierId { get; set; }
         [ForeignKey("CourierId")]
         [Display(Name = "Kuryer")]
-        public virtual ApplicationUser Courier { get; set; }
+        public virtual Courier Courier { get; set; }
 
         [Required]
         [Display(Name = "Qiyməti")]
@@ -67,6 +67,10 @@ namespace BakcellPhoneWebApp.Models
 
         [Required]
         [DataType(DataType.Date)]
+        public DateTime CreatedDate { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
         public DateTime DeliveryTime { get; set; }
 
         public OrderStatus Status { get; set; }

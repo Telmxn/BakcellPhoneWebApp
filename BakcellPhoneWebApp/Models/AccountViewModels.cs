@@ -97,6 +97,74 @@ namespace BakcellPhoneWebApp.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class VendorViewModel
+    {
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+        [Phone]
+        [Display(Name = "Telefon nömrəsi")]
+        public string PhoneNumber { get; set; }
+    }
+
+    public class ManagerViewModel
+    {
+        [Required]
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Şifrə")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Şifrəni təsdiq edin")]
+        [Compare("Password", ErrorMessage = "Şifrə və təsdiq şifrəsi uyğun gəlmir.")]
+        public string ConfirmPassword { get; set; }
+    }
+
+    public class CourierViewModel
+    {
+        [EmailAddress]
+        [Display(Name = "Elektron ünvan")]
+        public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+        [Display(Name = "Ünvan")]
+        public string Location { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Şifrə")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Şifrəni təsdiq edin")]
+        [Compare("Password", ErrorMessage = "Şifrə və təsdiq şifrəsi uyğun gəlmir.")]
+        public string ConfirmPassword { get; set; }
+    }
+
     public class ResetPasswordViewModel
     {
         [Required]

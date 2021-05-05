@@ -179,6 +179,129 @@ namespace BakcellPhoneWebApp.Controllers
         }
 
         //
+        // GET: /Account/AddCourier
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddCourier()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/AddCourier
+        [HttpPost]
+        [Authorize(Roles ="Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddCourier(CourierViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Courier { UserName = model.UserName, Email = model.Email, Name = model.Name, Surname = model.Surname, Location = model.Location };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //Don't login at that moment.
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    await UserManager.AddToRoleAsync(user.Id, "Kuryer");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/AddVendor
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddVendor()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/AddVendor
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddVendor(VendorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Vendor { Name = model.Name, Surname = model.Surname, PhoneNumber = model.PhoneNumber, UserName = model.PhoneNumber};
+                var result = await UserManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    //Don't login at that moment.
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    await UserManager.AddToRoleAsync(user.Id, "Satıcı");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
+        // GET: /Account/AddManager
+        [Authorize(Roles = "Admin")]
+        public ActionResult AddManager()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/AddManager
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddManager(ManagerViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new Manager { UserName = model.UserName, Name = model.Name, Surname = model.Surname};
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    //Don't login at that moment.
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    await UserManager.AddToRoleAsync(user.Id, "Menecer");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        //
         // GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
