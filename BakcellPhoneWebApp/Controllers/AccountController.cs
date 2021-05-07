@@ -236,7 +236,7 @@ namespace BakcellPhoneWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new Vendor { Name = model.Name, Surname = model.Surname, PhoneNumber = model.PhoneNumber, UserName = model.PhoneNumber};
+                var user = new Vendor { Name = model.Name, Surname = model.Surname, PhoneNumber = model.PhoneNumber, UserName = model.UserName};
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

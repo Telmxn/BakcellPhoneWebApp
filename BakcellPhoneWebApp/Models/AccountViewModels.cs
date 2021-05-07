@@ -108,6 +108,10 @@ namespace BakcellPhoneWebApp.Models
         [Phone]
         [Display(Name = "Telefon nömrəsi")]
         public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
     }
 
     public class ManagerViewModel

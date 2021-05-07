@@ -1,0 +1,130 @@
+﻿@model IEnumerable<BakcellPhoneWebApp.Models.Order>
+
+@{
+    ViewBag.Title = "Çatdırılmalı";
+}
+
+<h2>Çatdırılmalı sifarişlər</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderedPhoneNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.City)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.District)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            Menecer
+        </th>
+        <th>
+            Satıcı
+        </th>
+        <th>
+            Kuryer
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumberPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CustomerInfo)
+        </th>
+        <th>
+            Yaranma vaxtı
+        </th>
+        <th>
+            Çatdırılma vaxtı
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="@item.Id+column">
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderedPhoneNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Manager.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vendor.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Courier.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NumberPrice)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CustomerInfo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DeliveryTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Image)
+            </td>
+            <td>
+                <input type='file' onchange='UploadImage(this)' style="display: none" id="@item.Id" class="fileupload" />
+                <input type="button" id="@item.Id+btnUpload" class="btnupload" value="Çatdırıldı" />
+            </td>
+        </tr>
+    }
+
+</table>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script>
+    $(".btnupload").click(function () {
+        $(this).siblings('.fileupload').click();
+    });
+    function UploadImage(elm) {
+        var id = $(elm).attr("id");
+                var formdata = new FormData(); //FormData object
+                var fileInput = elm;
+                //Iterating through each files selected in fileInput
+                for (i = 0; i < fileInput.files.length; i++) {
+                    //Appending each file to FormData object
+                    formdata.append(fileInput.files[i].name, fileInput.files[i]);
+                }
+                //Creating an XMLHttpRequest and sending
+                var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/Orders/DeliveredStatus/'+id);
+                xhr.send(formdata);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState == 4 && xhr.status == 200) {
+                        alert(xhr.responseText);
+                        location.reload();
+                    }
+                }
+                return false; 
+        };
+</script>

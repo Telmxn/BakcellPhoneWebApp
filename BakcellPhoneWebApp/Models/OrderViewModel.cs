@@ -7,29 +7,18 @@ using System.Web;
 
 namespace BakcellPhoneWebApp.Models
 {
-    public enum OrderStatus
+    public class OrderViewModel
     {
-        Gözləmədə,
-        Yolda,
-        Yoxlanılır,
-        Çatdırıldı
-    }
-
-    public class Order
-    {
-        [Key]
-        public int Id { get; set; }
-
         [Phone]
         [Required]
         [Display(Name = "Əlaqə nömrəsi")]
         public string CustomerPhoneNumber { get; set; }
-    
+
         [Phone]
         [Required]
         [Display(Name = "Sifariş etdiyi nömrə")]
         public string OrderedPhoneNumber { get; set; }
-    
+
         [Required]
         [Display(Name = "Şəhər")]
         public string City { get; set; }
@@ -42,20 +31,8 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Ünvan")]
         public string Address { get; set; }
 
-        public string ManagerId { get; set; }
-        [ForeignKey("ManagerId")]
-        [Display(Name = "Menecer")]
-        public virtual Manager Manager { get; set; }
-
-        public string VendorId { get; set; }
-        [ForeignKey("VendorId")]
         [Display(Name = "Satıcı")]
-        public virtual Vendor Vendor { get; set; }
-
-        public string CourierId { get; set; }
-        [ForeignKey("CourierId")]
-        [Display(Name = "Kuryer")]
-        public virtual Courier Courier { get; set; }
+        public string VendorId { get; set; }
 
         [Required]
         [Display(Name = "Qiyməti")]
@@ -66,17 +43,9 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Müştəri")]
         public string CustomerInfo { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? CreatedDate { get; set; }
-
         [Required]
         [DataType(DataType.DateTime)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
-        public DateTime? DeliveryTime { get; set; }
-
-        public OrderStatus Status { get; set; }
-
-        [Display(Name = "Təsdiq Şəkli", Prompt = "Image")]
-        public string Image { get; set; }
+        public DateTime DeliveryTime { get; set; }
     }
 }

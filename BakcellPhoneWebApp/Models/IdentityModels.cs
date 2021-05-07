@@ -39,6 +39,9 @@ namespace BakcellPhoneWebApp.Models
             return new ApplicationDbContext();
         }
 
+        public DbSet<Courier> Couriers { get; set; }
+        public DbSet<Vendor> Vendors { get; set; }
+        public DbSet<Manager> Managers { get; set; }
         public DbSet<Order> Orders { get; set; }
     }
 }
