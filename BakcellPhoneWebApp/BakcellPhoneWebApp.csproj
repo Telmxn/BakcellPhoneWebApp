@@ -339,6 +339,14 @@
     <Content Include="Views\Orders\OnWayStatus.cshtml" />
     <Content Include="Views\Home\BeingDeliveredOrders.cshtml" />
     <Content Include="Views\Home\SentOrders.cshtml" />
+    <Content Include="Views\Orders\OrderList.cshtml" />
+    <Content Include="Views\Home\WaitingOrders.cshtml" />
+    <Content Include="Views\Account\Managers.cshtml" />
+    <Content Include="Views\Account\EditManager.cshtml" />
+    <Content Include="Views\Account\Vendors.cshtml" />
+    <Content Include="Views\Account\EditVendor.cshtml" />
+    <Content Include="Views\Account\Couriers.cshtml" />
+    <Content Include="Views\Account\EditCourier.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

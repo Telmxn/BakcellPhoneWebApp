@@ -39,6 +39,13 @@ namespace BakcellPhoneWebApp.Controllers
             return View(orders);
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult WaitingOrders()
+        {
+            var orders = _db.Orders.Where(x => x.Status == OrderStatus.Yoxlanılır).ToList();
+            return View(orders);
+        }
+
         [Authorize(Roles = "Kuryer")]
         public ActionResult BeingDeliveredOrders()
         {

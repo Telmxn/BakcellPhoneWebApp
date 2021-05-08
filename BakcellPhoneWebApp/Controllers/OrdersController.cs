@@ -96,6 +96,35 @@ namespace BakcellPhoneWebApp.Controllers
             return RedirectToAction("PendingOrders", "Home");
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult ConfirmOrder(int id)
+        {
+            var order = _db.Orders.Find(id);
+            if (order == null)
+            {
+                HttpNotFound();
+            }
+            order.Status = OrderStatus.Çatdırıldı;
+            _db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+
+            var price = order.NumberPrice;
+            var courier = _db.Users.Find(order.CourierId);
+            var manager = _db.Users.Find(order.ManagerId);
+            var vendor = _db.Users.Find(order.VendorId);
+
+            courier.Balance += 2.50m;
+            manager.Balance += 2.00m;
+            vendor.Balance += price - 10;
+
+            _db.Entry(courier).State = System.Data.Entity.EntityState.Modified;
+            _db.Entry(manager).State = System.Data.Entity.EntityState.Modified;
+            _db.Entry(vendor).State = System.Data.Entity.EntityState.Modified;
+            _db.SaveChanges();
+
+            return RedirectToAction("WaitingOrders", "Home");
+        }
+
+
         [HttpPost]
         [Authorize(Roles = "Kuryer")]
         public JsonResult DeliveredStatus(int id)
@@ -130,6 +159,15 @@ namespace BakcellPhoneWebApp.Controllers
             var Orders = _db.Orders.Where(x=>x.ManagerId==userid).ToList();
             return View(Orders);
         }
+
+        [Authorize(Roles = "Satıcı")]
+        public ActionResult OrderList()
+        {
+            var userid = User.Identity.GetUserId();
+            var Orders = _db.Orders.Where(x => x.VendorId == userid && x.Status == OrderStatus.Çatdırıldı).ToList();
+            return View(Orders);
+        }
+
         // GET: Orders/Details/5
         public ActionResult Details(int id)
         {

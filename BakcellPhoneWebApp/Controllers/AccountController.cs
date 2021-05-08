@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BakcellPhoneWebApp.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BakcellPhoneWebApp.Controllers
 {
@@ -61,6 +62,174 @@ namespace BakcellPhoneWebApp.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             return View();
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Managers()
+        {
+            return View(_db.Managers.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditManager(string username)
+        {
+            ApplicationUser appUser = new ApplicationUser();
+            appUser = UserManager.FindByName(username);
+            ManagerEdit user = new ManagerEdit();
+            user.Id = appUser.Id;
+            user.UserName = appUser.UserName;
+            user.Name = appUser.Name;
+            user.Surname = appUser.Surname;
+            user.Balance = appUser.Balance;
+
+            return View(user);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Vendors()
+        {
+            return View(_db.Vendors.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditVendor(string username)
+        {
+            ApplicationUser appUser = new ApplicationUser();
+            appUser = UserManager.FindByName(username);
+            VendorEdit user = new VendorEdit();
+            user.Id = appUser.Id;
+            user.UserName = appUser.UserName;
+            user.Name = appUser.Name;
+            user.Surname = appUser.Surname;
+            user.Balance = appUser.Balance;
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditVendor(VendorEdit model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var store = new UserStore<ApplicationUser>(_db);
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = manager.FindById(model.Id);
+            currentUser.Name = model.Name;
+            currentUser.Surname = model.Surname;
+            currentUser.UserName = model.UserName;
+            currentUser.Balance = model.Balance;
+            if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
+            {
+                await manager.UpdateAsync(currentUser);
+                var ctx = store.Context;
+                ctx.SaveChanges();
+                return RedirectToAction("Vendors");
+            }
+            ViewBag.Error = "Bu İstifadəçi adı artıq istifadə olunur.";
+            return View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditManager(ManagerEdit model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var store = new UserStore<ApplicationUser>(_db);
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = manager.FindById(model.Id);
+            currentUser.Name = model.Name;
+            currentUser.Surname = model.Surname;
+            currentUser.UserName = model.UserName;
+            currentUser.Balance = model.Balance;
+            if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
+            {
+                await manager.UpdateAsync(currentUser);
+                var ctx = store.Context;
+                ctx.SaveChanges();
+                return RedirectToAction("Managers");
+            }
+            ViewBag.Error = "Bu İstifadəçi adı artıq istifadə olunur.";
+            return View(model);
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Couriers()
+        {
+            return View(_db.Couriers.ToList());
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditCourier(string username)
+        {
+            Courier appUser = new Courier();
+            appUser = (Courier)UserManager.FindByName(username);
+            CourierEdit user = new CourierEdit();
+            user.Id = appUser.Id;
+            user.Location = appUser.Location;
+            user.UserName = appUser.UserName;
+            user.Name = appUser.Name;
+            user.Surname = appUser.Surname;
+            user.Balance = appUser.Balance;
+
+            return View(user);
+        }
+
+        public async Task<ActionResult> DeleteVendor(string id)
+        {
+            var user = await _db.Vendors.FindAsync(id);
+            _db.Vendors.Remove(user);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index","Home");
+        }
+
+        public async Task<ActionResult> DeleteCourier(string id)
+        {
+            var user = await _db.Couriers.FindAsync(id);
+            _db.Couriers.Remove(user);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<ActionResult> DeleteManager(string id)
+        {
+            var user = await _db.Managers.FindAsync(id);
+            _db.Managers.Remove(user);
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditCourier(CourierEdit model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var store = new UserStore<Courier>(_db);
+            var manager = new UserManager<Courier>(store);
+            var currentUser = manager.FindById(model.Id);
+            currentUser.Location = model.Location;
+            currentUser.Name = model.Name;
+            currentUser.Surname = model.Surname;
+            currentUser.UserName = model.UserName;
+            currentUser.Balance = model.Balance;
+            if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
+            {
+                await manager.UpdateAsync(currentUser);
+                var ctx = store.Context;
+                ctx.SaveChanges();
+                return RedirectToAction("Couriers");
+            }
+            ViewBag.Error = "Bu İstifadəçi adı artıq istifadə olunur.";
+            return View(model);
         }
 
         //

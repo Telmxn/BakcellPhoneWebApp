@@ -114,6 +114,63 @@ namespace BakcellPhoneWebApp.Models
         public string UserName { get; set; }
     }
 
+    public class ManagerEdit
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+
+        [Display(Name = "Balans")]
+        public decimal Balance { get; set; }
+    }
+
+    public class VendorEdit
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+
+        [Display(Name = "Balans")]
+        public decimal Balance { get; set; }
+    }
+
+    public class CourierEdit
+    {
+        public string Id { get; set; }
+
+        [Display(Name = "İstifadəçi adı")]
+        public string UserName { get; set; }
+
+        [Display(Name = "Ad")]
+        public string Name { get; set; }
+
+        [Display(Name = "Soyad")]
+        public string Surname { get; set; }
+
+
+        [Display(Name = "Balans")]
+        public decimal Balance { get; set; }
+
+        [Display(Name = "Ünvan")]
+        public string Location { get; set; }
+    }
+
     public class ManagerViewModel
     {
         [Required]

@@ -25,10 +25,20 @@
                     {
                         <li>@Html.ActionLink("Gələn sifarişlər", "PendingOrders", "Home")</li>
                         <li>@Html.ActionLink("Göndərilən sifarişlər", "SentOrders", "Home")</li>
+                        <li>@Html.ActionLink("Yoxlama", "WaitingOrders", "Home")</li>
+                        <li>@Html.ActionLink("Menecerlər", "Managers", "Account")</li>
+                        <li>@Html.ActionLink("Kuryerlər", "Couriers", "Account")</li>
+                        <li>@Html.ActionLink("Satıcılar", "Vendors", "Account")</li>
                     }
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.IsInRole("Menecer"))
+                    {
+                        <li>@Html.ActionLink("Sifariş göndər", "Create", "Orders")</li>
+                        <li>@Html.ActionLink("Göndərilən sifarişlər", "List", "Orders")</li>
+                    }
+                    @if (User.IsInRole("Satıcı"))
+                    {
+                        <li>@Html.ActionLink("Sifarişlərim", "OrderList", "Orders")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

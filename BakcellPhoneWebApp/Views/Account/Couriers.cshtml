@@ -1,0 +1,57 @@
+﻿@model IEnumerable<BakcellPhoneWebApp.Models.Courier>
+
+@{
+    ViewBag.Title = "Kuryerlər";
+}
+
+<h2>Kuryerlər</h2>
+
+<p>
+    @Html.ActionLink("Yarat", "AddCourier")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Surname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.ActionLink("Redaktə et", "EditCourier", new { username = item.UserName }) |
+                @Html.ActionLink("Sil", "DeleteCourier", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
