@@ -45,9 +45,6 @@
         <th>
             Çatdırılma vaxtı
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
         <th></th>
     </tr>
 
@@ -89,9 +86,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DeliveryTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
             </td>
             <td>
                 @Html.ActionLink("Yolda", "OnWayStatus", "Orders", new { id = item.Id }, null) |

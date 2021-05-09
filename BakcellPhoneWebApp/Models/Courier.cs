@@ -11,6 +11,9 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Ünvan")]
         public string Location { get; set; }
 
+        [Display(Name = "Telegram istifadəçi adı")]
+        public string TgUsername { get; set; }
+
         public virtual ICollection<Order> Orders { get; set; }
     }
 }

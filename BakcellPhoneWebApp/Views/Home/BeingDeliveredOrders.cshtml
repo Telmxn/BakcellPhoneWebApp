@@ -44,9 +44,6 @@
         <th>
             Çatdırılma vaxtı
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
         <th></th>
     </tr>
 
@@ -90,9 +87,6 @@
                 @Html.DisplayFor(modelItem => item.DeliveryTime)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
                 <input type='file' onchange='UploadImage(this)' style="display: none" id="@item.Id" class="fileupload" />
                 <input type="button" id="@item.Id+btnUpload" class="btnupload" value="Çatdırıldı" />
             </td>
@@ -110,6 +104,7 @@
         var id = $(elm).attr("id");
                 var formdata = new FormData(); //FormData object
                 var fileInput = elm;
+                
                 //Iterating through each files selected in fileInput
                 for (i = 0; i < fileInput.files.length; i++) {
                     //Appending each file to FormData object

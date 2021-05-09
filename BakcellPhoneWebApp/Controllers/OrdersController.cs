@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -65,6 +66,21 @@ namespace BakcellPhoneWebApp.Controllers
 
             order.CourierId = courierid;
             order.Status = OrderStatus.Yolda;
+
+            var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
+            var chat_id = "-1001162743010";
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+            var link = baseUrl + "Home/BeingDeliveredOrders";
+            var user = _db.Couriers.Find(order.CourierId);
+
+            var text = "<b> Yeni sifariş </b>: %0A - <b> Tg istifadəçi adı:</b><i> @" + user.TgUsername + " </i> %0A - <b> Ad:</b><i> " + user.Name + " </i> %0A - <b> Soyad:</b><i> " + user.Surname + " </i> %0A - <b> Ünvan:</b><i> " + user.Location + " </i> %0A - <b> Link:</b><i> " + link + " </i>";
+
+            var url = "https://api.telegram.org/bot"+token+"/sendMessage?chat_id="+chat_id+"&text="+text+"&parse_mode=html";
+
+            var request = WebRequest.Create(url);
+            request.Method = "GET";
+
+            using var webResponse = request.GetResponse();
 
             _db.Entry(order).State = System.Data.Entity.EntityState.Modified;
             _db.SaveChanges();
@@ -127,7 +143,7 @@ namespace BakcellPhoneWebApp.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Kuryer")]
-        public JsonResult DeliveredStatus(int id)
+        public ActionResult DeliveredStatus(int id)
         {
             var order = _db.Orders.Find(id);
             if (order == null)
@@ -139,15 +155,31 @@ namespace BakcellPhoneWebApp.Controllers
                 HttpPostedFileBase file = Request.Files[i]; //Uploaded file
                                                             //Use the following properties to get file's name, size and MIMEType
                 int fileSize = file.ContentLength;
-                var fileName = DateTime.Now.ToLocalTime() + Path.GetExtension(file.FileName);
+                //var fileName = DateTime.Now.ToLocalTime() + Path.GetExtension(file.FileName);
+                var fileName = Path.GetFileName(file.FileName);
                 string mimeType = file.ContentType;
                 Stream fileContent = file.InputStream;
                 //To save file, use SaveAs method
-                file.SaveAs(Server.MapPath("~/Uploads/Confirmation/") + fileName); //File will be saved in application root
+                file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/Confirmation/"), DateTime.Now.ToString("yyyy_MM_dd_mm_ss") + "_" + fileName));
                 order.Image = fileName;
                 order.Status = OrderStatus.Yoxlanılır;
                 _db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 _db.SaveChanges();
+
+                var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
+                var chat_id = "-1001176204874";
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                var link = baseUrl + "Home/WaitingOrders";
+                var user = _db.Couriers.Find(order.CourierId);
+
+                var text = "<b> Sifariş </b>: %0A - <b> Kuryer:</b><i> " + user.Name + " " + user.Surname + " </i> %0A - <b> Link:</b><i> " + link + " </i>";
+
+                var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chat_id + "&text=" + text + "&parse_mode=html";
+
+                var request = WebRequest.Create(url);
+                request.Method = "GET";
+
+                using var webResponse = request.GetResponse();
             }
             return Json(Request.Files.Count + " şəkil yükləndi.");
         }
@@ -166,12 +198,6 @@ namespace BakcellPhoneWebApp.Controllers
             var userid = User.Identity.GetUserId();
             var Orders = _db.Orders.Where(x => x.VendorId == userid && x.Status == OrderStatus.Çatdırıldı).ToList();
             return View(Orders);
-        }
-
-        // GET: Orders/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         [Authorize(Roles = "Menecer")]
@@ -216,12 +242,28 @@ namespace BakcellPhoneWebApp.Controllers
                     District = model.District,
                     NumberPrice = model.NumberPrice,
                     OrderedPhoneNumber = model.OrderedPhoneNumber,
-                    Status = OrderStatus.Yolda,
+                    Status = OrderStatus.Gözləmədə,
                     ManagerId = User.Identity.GetUserId(),
                     VendorId = model.VendorId
                 };
                 _db.Orders.Add(order);
                 _db.SaveChanges();
+
+                var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
+                var chat_id = "-1001178088564";
+                string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+                var link = baseUrl + "Home/SentOrders";
+                var user = _db.Managers.Find(order.ManagerId);
+
+                var text = "<b> Yeni sifariş </b>: %0A - <b> Menecer:</b><i> " + user.Name + " " + user.Surname + " </i> %0A - <b> Link:</b><i> " + link + " </i>";
+
+                var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chat_id + "&text=" + text + "&parse_mode=html";
+
+                var request = WebRequest.Create(url);
+                request.Method = "GET";
+
+                using var webResponse = request.GetResponse();
+
                 return RedirectToAction("List", "Orders");
             }
 

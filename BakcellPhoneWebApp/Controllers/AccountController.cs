@@ -172,6 +172,7 @@ namespace BakcellPhoneWebApp.Controllers
             appUser = (Courier)UserManager.FindByName(username);
             CourierEdit user = new CourierEdit();
             user.Id = appUser.Id;
+            user.TgUsername = appUser.TgUsername;
             user.Location = appUser.Location;
             user.UserName = appUser.UserName;
             user.Name = appUser.Name;
@@ -181,12 +182,40 @@ namespace BakcellPhoneWebApp.Controllers
             return View(user);
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> EditCourier(CourierEdit model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            var store = new UserStore<Courier>(_db);
+            var manager = new UserManager<Courier>(store);
+            var currentUser = manager.FindById(model.Id);
+            currentUser.TgUsername = model.TgUsername;
+            currentUser.Location = model.Location;
+            currentUser.Name = model.Name;
+            currentUser.Surname = model.Surname;
+            currentUser.UserName = model.UserName;
+            currentUser.Balance = model.Balance;
+            if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
+            {
+                await manager.UpdateAsync(currentUser);
+                var ctx = store.Context;
+                ctx.SaveChanges();
+                return RedirectToAction("Couriers");
+            }
+            ViewBag.Error = "Bu İstifadəçi adı artıq istifadə olunur.";
+            return View(model);
+        }
+
         public async Task<ActionResult> DeleteVendor(string id)
         {
             var user = await _db.Vendors.FindAsync(id);
             _db.Vendors.Remove(user);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<ActionResult> DeleteCourier(string id)
@@ -203,33 +232,6 @@ namespace BakcellPhoneWebApp.Controllers
             _db.Managers.Remove(user);
             await _db.SaveChangesAsync();
             return RedirectToAction("Index", "Home");
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> EditCourier(CourierEdit model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var store = new UserStore<Courier>(_db);
-            var manager = new UserManager<Courier>(store);
-            var currentUser = manager.FindById(model.Id);
-            currentUser.Location = model.Location;
-            currentUser.Name = model.Name;
-            currentUser.Surname = model.Surname;
-            currentUser.UserName = model.UserName;
-            currentUser.Balance = model.Balance;
-            if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
-            {
-                await manager.UpdateAsync(currentUser);
-                var ctx = store.Context;
-                ctx.SaveChanges();
-                return RedirectToAction("Couriers");
-            }
-            ViewBag.Error = "Bu İstifadəçi adı artıq istifadə olunur.";
-            return View(model);
         }
 
         //

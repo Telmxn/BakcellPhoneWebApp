@@ -163,6 +163,8 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Soyad")]
         public string Surname { get; set; }
 
+        [Display(Name = "Telegram istifadəçi adı")]
+        public string TgUsername { get; set; }
 
         [Display(Name = "Balans")]
         public decimal Balance { get; set; }
@@ -213,6 +215,10 @@ namespace BakcellPhoneWebApp.Models
 
         [Display(Name = "Ünvan")]
         public string Location { get; set; }
+
+        [Required]
+        [Display(Name = "Telegram istifadəçi adı")]
+        public string TgUsername { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
