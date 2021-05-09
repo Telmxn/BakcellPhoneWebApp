@@ -140,6 +140,44 @@ namespace BakcellPhoneWebApp.Controllers
             return RedirectToAction("WaitingOrders", "Home");
         }
 
+        [Authorize(Roles = "Admin")]
+        public ActionResult RejectOrder(int id)
+        {
+            var order = _db.Orders.Find(id);
+            if (order == null)
+            {
+                HttpNotFound();
+            }
+
+            var filePath = Server.MapPath("~/Uploads/Confirmation/" + order.Image);
+            if (System.IO.File.Exists(filePath))
+            {
+                System.IO.File.Delete(filePath);
+            }
+
+            order.Status = OrderStatus.Yolda;
+            order.Image = null;
+            _db.Entry(order).State = System.Data.Entity.EntityState.Modified;
+            _db.SaveChanges();
+
+            var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
+            var chat_id = "-1001162743010";
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+            var link = baseUrl + "Home/BeingDeliveredOrders";
+            var user = _db.Couriers.Find(order.CourierId);
+
+            var text = "<b> Təsdiqlənməmiş sifariş </b>: %0A - <b> Tg istifadəçi adı:</b><i> @" + user.TgUsername + " </i> %0A - <b> Ad:</b><i> " + user.Name + " </i> %0A - <b> Soyad:</b><i> " + user.Surname + " </i> %0A - <b> Ünvan:</b><i> " + user.Location + " </i> %0A - <b> Link:</b><i> " + link + " </i>";
+
+            var url = "https://api.telegram.org/bot" + token + "/sendMessage?chat_id=" + chat_id + "&text=" + text + "&parse_mode=html";
+
+            var request = WebRequest.Create(url);
+            request.Method = "GET";
+
+            using var webResponse = request.GetResponse();
+
+            return RedirectToAction("WaitingOrders", "Home");
+        }
+
 
         [HttpPost]
         [Authorize(Roles = "Kuryer")]

@@ -93,7 +93,8 @@
                 <img src="~/Uploads/Confirmation/@item.Image" alt="Order Image" />
             </td>
             <td>
-                @Html.ActionLink("Təsdiq et", "ConfirmOrder", "Orders", new { id = item.Id }, null)
+                @Html.ActionLink("Təsdiq et", "ConfirmOrder", "Orders", new { id = item.Id }, null) | 
+                @Html.ActionLink("İnkar et", "RejectOrder", "Orders", new { id = item.Id }, null)
             </td>
         </tr>
     }
