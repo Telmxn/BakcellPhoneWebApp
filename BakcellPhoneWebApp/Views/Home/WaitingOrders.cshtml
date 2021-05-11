@@ -1,103 +1,154 @@
 ﻿@model IEnumerable<BakcellPhoneWebApp.Models.Order>
 
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Təsdiqlənməmiş sifarişlər";
 }
 
-<h2>Gözləmədə olan sifarişlər</h2>
+@section Styles{
+    <link rel="stylesheet" href="~/Content/ordercard.css">
+    <style>
+        #myImg {
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderedPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            Menecer
-        </th>
-        <th>
-            Satıcı
-        </th>
-        <th>
-            Kuryer
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerInfo)
-        </th>
-        <th>
-            Yaranma vaxtı
-        </th>
-        <th>
-            Çatdırılma vaxtı
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th></th>
-    </tr>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+        }
 
+        .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 10%;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+            .close:hover {
+                color: #bbb;
+                cursor: pointer;
+            }
+
+        @@media only screen and (max-width: 700px) {
+            .modal-content {
+                width: 100%;
+            }
+        }
+
+        .card-img {
+            margin-top: 15px;
+        }
+
+            .card-img img {
+                width: 150px;
+                max-width: 135px;
+            }
+
+        .card-footer {
+            display: flex;
+            padding: 0;
+        }
+
+            .card-footer a:nth-child(1) {
+                background-color: red;
+                border-bottom-left-radius: 15px;
+            }
+
+            .card-footer * {
+                width: 50%;
+                padding: 10px 0;
+            }
+    </style>
+}
+
+<h1 class="big-title">Təstiqlənməmiş sifarişlər</h1>
+
+<div class="card-container">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderedPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.District)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manager.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendor.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courier.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryTime)
-            </td>
-            <td>
-                <img src="~/Uploads/Confirmation/@item.Image" alt="Order Image" />
-            </td>
-            <td>
-                @Html.ActionLink("Təsdiq et", "ConfirmOrder", "Orders", new { id = item.Id }, null) | 
-                @Html.ActionLink("İnkar et", "RejectOrder", "Orders", new { id = item.Id }, null)
-            </td>
-        </tr>
+        <section class="card">
+            <div class="card-body">
+                <div class="card-items">
+                    <div class="card-title">Müştəri :</div>
+                    <span class="card-info">@item.CustomerInfo</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Satıcı :</div>
+                    <span class="card-info">@item.Vendor.Name @item.Vendor.Surname</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Sifariş etdiyi nömrə :</div>
+                    <span class="card-info">@item.OrderedPhoneNumber</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Qiyməti :</div>
+                    <span class="card-info">@item.NumberPrice</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Əlaqə nömrəsi :</div>
+                    <span class="card-info">@item.CustomerPhoneNumber</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Menecer :</div>
+                    <span class="card-info">@item.Manager.Name @item.Manager.Surname</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Ünvan :</div>
+                    <span class="card-info">@item.Address</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Çatdırılma vaxtı :</div>
+                    <span class="card-info">@item.DeliveryTime.Value.ToString("dd.MM.yyyy hh:mm")</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-img">
+                        <img id="myImg" onclick="showPopup(this)" src="~/Uploads/Confirmation/@item.Image">
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                @Html.ActionLink("Yenidən göndər", "RejectOrder", "Orders", new { id = item.Id }, null)
+                @Html.ActionLink("Təsdiqlə", "ConfirmOrder", "Orders", new { id = item.Id }, null)
+            </div>
+        </section>
     }
+    <div id="myModal" class="modal">
+        <span class="close">x</span>
+        <img class="modal-content" id="img01">
+    </div>
+</div>
 
-</table>
+<script>
+        var modal = document.getElementById("myModal");
+
+        function showPopup(elm) {
+            var modalImg = document.getElementById("img01");
+            var captionText = document.getElementById("caption");
+            modal.style.display = "block";
+            modalImg.src = elm.src;
+            captionText.innerHTML = elm.alt;
+        }
+
+        var span = document.getElementsByClassName("close")[0];
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
 </script>

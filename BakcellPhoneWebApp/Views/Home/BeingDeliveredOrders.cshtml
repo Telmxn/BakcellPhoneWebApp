@@ -1,99 +1,83 @@
 ﻿@model IEnumerable<BakcellPhoneWebApp.Models.Order>
 
 @{
-    ViewBag.Title = "Çatdırılmalı";
+    ViewBag.Title = "Gələn sifarişlər";
+}
+@section Styles{
+    <link rel="stylesheet" href="~/Content/ordercard.css">
+    <style>
+        input[type=file] {
+            display: none;
+        }
+
+        .card-footer {
+            padding: 0;
+        }
+
+            .card-footer button {
+                background-color: #2db504;
+                width: 100%;
+                height: inherit;
+                border-radius: 0 0 15px 15px;
+                cursor: pointer;
+                outline: none;
+                border: none;
+            }
+    </style>
 }
 
-<h2>Çatdırılmalı sifarişlər</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderedPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            Menecer
-        </th>
-        <th>
-            Satıcı
-        </th>
-        <th>
-            Kuryer
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerInfo)
-        </th>
-        <th>
-            Yaranma vaxtı
-        </th>
-        <th>
-            Çatdırılma vaxtı
-        </th>
-        <th></th>
-    </tr>
-
+<div class="gain-box">
+    Qazanc :
+    <span>@ViewBag.Balance Azn</span>
+</div>
+<h1 class="big-title">Gələn sifarişlər</h1>
+<div class="card-container">
     @foreach (var item in Model)
     {
-        <tr id="@item.Id+column">
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderedPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.District)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manager.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendor.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courier.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryTime)
-            </td>
-            <td>
+        <section class="card" id="@item.Id+column">
+            <div class="card-body">
+                <div class="card-items">
+                    <div class="card-title">Müştəri :</div>
+                    <span class="card-info">@item.CustomerInfo</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Satıcı :</div>
+                    <span class="card-info">@item.Vendor.Name @item.Vendor.Surname</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Sifariş etdiyi nömrə :</div>
+                    <span class="card-info">@item.OrderedPhoneNumber</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Qiyməti :</div>
+                    <span class="card-info">@item.NumberPrice</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Əlaqə nömrəsi :</div>
+                    <span class="card-info">@item.CustomerPhoneNumber</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Menecer :</div>
+                    <span class="card-info">@item.Manager.Name @item.Manager.Surname</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Ünvan :</div>
+                    <span class="card-info">@item.Address</span>
+                </div>
+                <div class="card-items">
+                    <div class="card-title">Çatdırılma vaxtı :</div>
+                    <span class="card-info">@item.DeliveryTime.Value.ToString("dd.MM.yyyy hh:mm")</span>
+                </div>
+            </div>
+            <div class="card-footer">
                 <input type='file' onchange='UploadImage(this)' style="display: none" id="@item.Id" class="fileupload" />
                 <input type="button" id="@item.Id+btnUpload" class="btnupload" value="Çatdırıldı" />
-            </td>
-        </tr>
+                <input id="img" type="file">
+                <button for="img">Çatırdırıldı</button>
+            </div>
+        </section>
     }
-
-</table>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
@@ -102,24 +86,24 @@
     });
     function UploadImage(elm) {
         var id = $(elm).attr("id");
-                var formdata = new FormData(); //FormData object
-                var fileInput = elm;
-                
-                //Iterating through each files selected in fileInput
-                for (i = 0; i < fileInput.files.length; i++) {
-                    //Appending each file to FormData object
-                    formdata.append(fileInput.files[i].name, fileInput.files[i]);
-                }
-                //Creating an XMLHttpRequest and sending
-                var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/Orders/DeliveredStatus/'+id);
-                xhr.send(formdata);
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        alert(xhr.responseText);
-                        location.reload();
-                    }
-                }
-                return false; 
-        };
+        var formdata = new FormData(); //FormData object
+        var fileInput = elm;
+
+        //Iterating through each files selected in fileInput
+        for (i = 0; i < fileInput.files.length; i++) {
+            //Appending each file to FormData object
+            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        }
+        //Creating an XMLHttpRequest and sending
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/Orders/DeliveredStatus/' + id);
+        xhr.send(formdata);
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                alert(xhr.responseText);
+                location.reload();
+            }
+        }
+        return false;
+    };
 </script>

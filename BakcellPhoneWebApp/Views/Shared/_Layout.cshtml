@@ -1,63 +1,66 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link rel="stylesheet" href="~/Content/partial.css">
+    @RenderSection("styles", required: false)
+    <title>@ViewBag.Title - Bakcell</title>
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <li>@Html.ActionLink("Gələn sifarişlər", "PendingOrders", "Home")</li>
-                        <li>@Html.ActionLink("Göndərilən sifarişlər", "SentOrders", "Home")</li>
-                        <li>@Html.ActionLink("Yoxlama", "WaitingOrders", "Home")</li>
-                        <li>@Html.ActionLink("Menecerlər", "Managers", "Account")</li>
-                        <li>@Html.ActionLink("Kuryerlər", "Couriers", "Account")</li>
-                        <li>@Html.ActionLink("Satıcılar", "Vendors", "Account")</li>
-                    }
-                    @if (User.IsInRole("Menecer"))
-                    {
-                        <li>@Html.ActionLink("Sifariş göndər", "Create", "Orders")</li>
-                        <li>@Html.ActionLink("Göndərilən sifarişlər", "List", "Orders")</li>
-                    }
-                    @if (User.IsInRole("Satıcı"))
-                    {
-                        <li>@Html.ActionLink("Sifarişlərim", "OrderList", "Orders")</li>
-                    }
-                    @if (User.IsInRole("Kuryer"))
-                    {
-                        <li>@Html.ActionLink("Sifarişlər", "BeingDeliveredOrders", "Home")</li>
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+    <header>
+        <ul id="menu">
+            @if (User.IsInRole("Admin"))
+            {
+                <li>@Html.ActionLink("Gələn sifarişlər", "PendingOrders", "Home")</li>
+                <li>@Html.ActionLink("Göndərilən sifarişlər", "SentOrders", "Home")</li>
+                <li>@Html.ActionLink("Təsdiqlənməmiş sifarişlər", "WaitingOrders", "Home")</li>
+                <li>
+                    <div class="dropdown">
+                        <button class="dropbtn">İstifadəçilər</button>
+                        <div class="dropdown-content">
+                            @Html.ActionLink("Menecerlər", "Managers", "Account")
+                            @Html.ActionLink("Kuryerlər", "Couriers", "Account")
+                            @Html.ActionLink("Satıcılar", "Vendors", "Account")
+                        </div>
+                    </div>
+                </li>
+            }
+            @if (User.IsInRole("Menecer"))
+            {
+                <li>@Html.ActionLink("Sifariş göndər", "Create", "Orders")</li>
+                <li>@Html.ActionLink("Göndərilən sifarişlər", "List", "Orders")</li>
+            }
+            @if (User.IsInRole("Satıcı"))
+            {
+                <li>@Html.ActionLink("Sifarişlərim", "OrderList", "Orders")</li>
+            }
+            @if (User.IsInRole("Kuryer"))
+            {
+                <li>@Html.ActionLink("Sifarişlər", "BeingDeliveredOrders", "Home")</li>
+            }
+            <li>
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Çıxış</a>
+
+                }
+            </li>
+        </ul>
+        <div onclick="menufunc(this)" class="menu-btn">
+            <span></span>
         </div>
-    </div>
-    <div class="container body-content">
+    </header>
+
+    <div class="wrapper">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/script.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -29,42 +29,28 @@ namespace BakcellPhoneWebApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult OnWayStatus()
+        public ActionResult OnWayStatus(int id)
         {
-            var couriers =
-              _db.Couriers
-                .Select(s => new
-                {
-                    Id = s.Id,
-                    Name = s.Name + " " + s.Surname + " " + s.PhoneNumber
-                })
-                .ToList();
-            ViewBag.Couriers = new SelectList(couriers, "Id", "Name");
-            return View();
+            var couriers = _db.Couriers.ToList();
+            OnWayModel model = new OnWayModel
+            {
+                Id = id,
+                Couriers = couriers
+            };
+            return View(model);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult OnWayStatus(int id)
+        public ActionResult OnWayStatus(int id, string courierId)
         {
-            var couriers =
-              _db.Couriers
-                .Select(s => new
-                {
-                    Id = s.Id,
-                    Name = s.Name + " " + s.Surname + " " + s.PhoneNumber
-                })
-                .ToList();
-
             var order = _db.Orders.Find(id);
             if (order == null)
             {
                 HttpNotFound();
             }
 
-            string courierid = Request.Form["Kuryer"].ToString();
-
-            order.CourierId = courierid;
+            order.CourierId = courierId;
             order.Status = OrderStatus.Yolda;
 
             var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
@@ -199,7 +185,7 @@ namespace BakcellPhoneWebApp.Controllers
                 Stream fileContent = file.InputStream;
                 //To save file, use SaveAs method
                 file.SaveAs(Path.Combine(Server.MapPath("~/Uploads/Confirmation/"), DateTime.Now.ToString("yyyy_MM_dd_mm_ss") + "_" + fileName));
-                order.Image = fileName;
+                order.Image = DateTime.Now.ToString("yyyy_MM_dd_mm_ss") + "_" + fileName;
                 order.Status = OrderStatus.Yoxlanılır;
                 _db.Entry(order).State = System.Data.Entity.EntityState.Modified;
                 _db.SaveChanges();

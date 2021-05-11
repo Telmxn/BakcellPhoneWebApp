@@ -1,62 +1,93 @@
 ﻿@using BakcellPhoneWebApp.Models
 @model LoginViewModel
 @{
-    ViewBag.Title = "Log in";
+    ViewBag.Title = "Daxil ol";
+    Layout = "";
 }
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/Content/partial.css">
+    <style>
+        body {
+            height: 100vh;
+        }
 
-<h2>@ViewBag.Title.</h2>
-<div class="row">
-    <div class="col-md-8">
-        <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
-                @Html.AntiForgeryToken()
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="form-group">
-                    @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                    <div class="col-md-10">
-                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <div class="checkbox">
-                            @Html.CheckBoxFor(m => m.RememberMe)
-                            @Html.LabelFor(m => m.RememberMe)
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>
-                <p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
+        .wrapper {
+            min-height: 100%;
+        }
+
+        .login-form {
+            box-shadow: 0 16px 50px #7090B033;
+            -webkit-box-shadow: 0 16px 50px #7090B033;
+            -moz-box-shadow: 0 16px 50px #7090B033;
+            background-color: var(--white);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 460px;
+            height: 395px;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            padding: 25px 42px;
+        }
+
+        .remember-box input {
+            width: 20px;
+            height: 20px;
+            margin: 0 2px 0 5px;
+            cursor: pointer;
+        }
+
+        .remember-box label {
+            color: #A5A5A5;
+            font-size: 12px;
+            vertical-align: super;
+        }
+
+        @@media screen and (max-width: 470px) {
+            .login-form {
+                padding: 25px;
             }
-        </section>
+        }
+    </style>
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+    <div class="wrapper f-center">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            <h1 class="big-title m-bottom-20">Giriş</h1>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
+            @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password, new { @placeholder = "Şifrə" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+
+            <div class="remember-box">
+                @Html.CheckBoxFor(m => m.RememberMe, new { @id = "chckinp" })
+                @Html.LabelFor(m => m.RememberMe, new { @for = "chckinp" })
+            </div>
+            <input type="submit" value="Giriş">
+        }
     </div>
-    <div class="col-md-4">
-        <section id="socialLoginForm">
-            @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
-</div>
+</body>
+</html>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

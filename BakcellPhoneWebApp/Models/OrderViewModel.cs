@@ -48,4 +48,9 @@ namespace BakcellPhoneWebApp.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddTHH:mm}", ApplyFormatInEditMode = true)]
         public DateTime DeliveryTime { get; set; }
     }
+    public class OnWayModel
+    {
+        public List<Courier> Couriers { get; set; }
+        public int Id { get; set; }
+    }
 }

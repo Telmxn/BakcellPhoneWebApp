@@ -3,44 +3,55 @@
     ViewBag.Title = "Satıcı redaktə et";
 }
 
-<h2>@ViewBag.Title.</h2>
+@section Styles{
+    <style>
+        .wrapper form {
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            margin: 35px auto;
+            max-width: 396px;
+        }
+    </style>
+}
 
-@using (Html.BeginForm("EditVendor", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("EditVendor", "Account", FormMethod.Post, new { role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>@ViewBag.Title.</h4>
-    <hr />
+    <h1 class="big-title">Satıcı əlavə et</h1>
+
     @Html.HiddenFor(model => model.Id)
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Balance, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Balance, new { @class = "form-control" })
-        </div>
-    </div>
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+
+    @Html.LabelFor(m => m.Surname)
+    @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
+
+    @Html.LabelFor(m => m.PhoneNumber)
+    @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Telefon nömrəsi" })
+
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "Telefon nömrəsi" })
+
+    @Html.LabelFor(m => m.Balance)
+    @Html.TextBoxFor(m => m.Balance, new { @placeholder = "Balans" })
+
     <label class="label-danger">@ViewBag.Error</label>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Yadda saxla" />
-        </div>
-    </div>
+
+    <input type="submit" value="Yadda saxla">
 }
 
 @section Scripts {

@@ -4,48 +4,36 @@
     ViewBag.Title = "Satıcılar";
 }
 
-<h2>Satıcılar</h2>
+<link rel="stylesheet" href="~/Content/table.css">
 
-<p>
-    @Html.ActionLink("Yarat", "AddVendor")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Surname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Balance)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Balance)
-            </td>
-            <td>
-                @Html.ActionLink("Redaktə et", "EditVendor", new { username = item.UserName }) |
-                @Html.ActionLink("Sil", "DeleteVendor", new { id = item.Id })
-            </td>
-        </tr>
-    }
-
-</table>
+<div class="table-container">
+    <div class="table-header">
+        <h1 class="big-title">Satıcılar</h1>
+        @Html.ActionLink("Satıcı əlavə et", "AddVendor", null, new { @class = "button" })
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Ad</th>
+                <th scope="col">Soyad</th>
+                <th scope="col">İstifadəçi adı</th>
+                <th scope="col">Balans</th>
+                <th scope="col">Sil</th>
+                <th scope="col">Redaktə et</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">@item.Name</th>
+                    <td data-title="Soyad">@item.Surname</td>
+                    <td data-title="İstifadəçi ad">@item.UserName</td>
+                    <td data-title="Balans">@item.Balance</td>
+                    <td data-title="Sil"><a onclick="return confirm('İstifadəçi silinsin?');" href="@Url.Action("DeleteVendor", "Account", new { id = item.Id })"><img src="~/Content/img/delete-icon.svg"></a></td>
+                    <td data-title="Redaktə et"><a href="@Url.Action("EditVendor", "Account", new { username = item.UserName })"><img src="~/Content/img/edit-icon.svg"></a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

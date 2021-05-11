@@ -3,48 +3,48 @@
     ViewBag.Title = "Menecer əlavə et";
 }
 
-<h2>@ViewBag.Title.</h2>
+@section Styles{
+    <style>
+        .wrapper form {
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            flex-direction: column;
+            -webkit-box-orient: vertical;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            margin: 35px auto;
+            max-width: 396px;
+        }
+    </style>
+}
 
-@using (Html.BeginForm("AddManager", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("AddManager", "Account", FormMethod.Post, new { role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Menecer əlavə et.</h4>
-    <hr />
-    <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Surname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Əlavə et" />
-        </div>
-    </div>
+    <h1 class="big-title">Menecer əlavə et</h1>
+
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+
+    @Html.LabelFor(m => m.Surname)
+    @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+
+    @Html.LabelFor(m => m.UserName)
+    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
+
+    @Html.LabelFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password, new { @placeholder = "Şifrə" })
+
+    @Html.LabelFor(m => m.ConfirmPassword)
+    @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Təkrar şifrə" })
+    <input type="submit" value="Əlavə et">
 }
 
 @section Scripts {

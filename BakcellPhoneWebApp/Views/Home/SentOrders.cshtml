@@ -3,101 +3,61 @@
 @{
     ViewBag.Title = "Göndərilən sifarişlər";
 }
+@section Styles{
+    <link rel="stylesheet" href="~/Content/ordercard.css">
+}
 
-<h2>Göndərilən sifarişlər</h2>
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.OrderedPhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.District)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            Menecer
-        </th>
-        <th>
-            Satıcı
-        </th>
-        <th>
-            Kuryer
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumberPrice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CustomerInfo)
-        </th>
-        <th>
-            Yaranma vaxtı
-        </th>
-        <th>
-            Çatdırılma vaxtı
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Image)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-    </tr>
-
+<h1 class="big-title">Göndərilən sifarişlər</h1>
+<div class="card-container">
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.OrderedPhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.City)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.District)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Manager.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vendor.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Courier.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumberPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustomerInfo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DeliveryTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-        </tr>
+    <section class="card">
+        <div class="card-body">
+            <div class="card-items">
+                <div class="card-title">Müştəri :</div>
+                <span class="card-info">@item.CustomerInfo</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Satıcı :</div>
+                <span class="card-info">@item.Vendor.Name @item.Vendor.Surname</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Sifariş etdiyi nömrə :</div>
+                <span class="card-info">@item.OrderedPhoneNumber</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Qiyməti :</div>
+                <span class="card-info">@item.NumberPrice</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Əlaqə nömrəsi :</div>
+                <span class="card-info">@item.CustomerPhoneNumber</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Menecer :</div>
+                <span class="card-info">@item.Manager.Name @item.Manager.Surname</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Ünvan :</div>
+                <span class="card-info">@item.Address</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Çatdırılma vaxtı :</div>
+                <span class="card-info">@item.DeliveryTime.Value.ToString("dd.MM.yyyy hh:mm")</span>
+            </div>
+        </div>
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Yolda)
+        {
+            <div class="card-footer" style="background-color: #f5b53d;">
+                <span>Yolda</span>
+            </div>
+        }
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Çatdırıldı)
+        {
+            <div class="card-footer">
+                <span>Çatırdırıldı</span>
+            </div>
+        }
+    </section>
     }
-
-</table>
+</div>

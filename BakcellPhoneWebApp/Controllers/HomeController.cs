@@ -35,7 +35,7 @@ namespace BakcellPhoneWebApp.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult SentOrders()
         {
-            var orders = _db.Orders.Where(x => x.Status != OrderStatus.Gözləmədə).ToList();
+            var orders = _db.Orders.Where(x => x.Status == OrderStatus.Yolda || x.Status == OrderStatus.Çatdırıldı).ToList();
             return View(orders);
         }
 
@@ -50,6 +50,8 @@ namespace BakcellPhoneWebApp.Controllers
         public ActionResult BeingDeliveredOrders()
         {
             string currentUserId = User.Identity.GetUserId();
+            ApplicationUser currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            ViewBag.Balance = currentUser.Balance;
             var orders = _db.Orders.Where(x => x.CourierId == currentUserId && x.Status == OrderStatus.Yolda).ToList();
             return View(orders);
         }
