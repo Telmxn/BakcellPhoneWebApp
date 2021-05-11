@@ -39,6 +39,10 @@
                     {
                         <li>@Html.ActionLink("Sifarişlərim", "OrderList", "Orders")</li>
                     }
+                    @if (User.IsInRole("Kuryer"))
+                    {
+                        <li>@Html.ActionLink("Sifarişlər", "BeingDeliveredOrders", "Home")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
