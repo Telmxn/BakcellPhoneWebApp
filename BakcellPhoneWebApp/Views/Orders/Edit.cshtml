@@ -1,12 +1,55 @@
 ﻿@model BakcellPhoneWebApp.Models.Order
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Redaktə et";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+@section Styles{
 
+    <style>
+        .wrapper form {
+            max-width: 784px;
+            margin: 30px auto;
+        }
+
+        .form-items {
+            display: flex;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            flex-wrap: wrap;
+            -webkit-flex-wrap: wrap;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-between;
+            -ms-flex-pack: justify;
+            justify-content: space-between;
+        }
+
+        .item {
+            width: 376px;
+            margin: 0 8px;
+        }
+
+        @@media screen and (max-width: 803px) {
+            .form-items {
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+            }
+
+            .item {
+                margin: 0;
+            }
+        }
+    </style>
+}
+
+<h1 class="big-title">Sifariş</h1>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -18,98 +61,70 @@
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.CreatedDate)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-items">
+        <div class="item">
+            <label>Müştərinin əlaqə nömrəsi</label>
+            @Html.EditorFor(model => model.CustomerPhoneNumber, new { htmlAttributes = new { @placeholder = "Müştərinin əlaqə nömrəsi" } })
             @Html.ValidationMessageFor(model => model.CustomerPhoneNumber, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.OrderedPhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.OrderedPhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="item">
+            <label>Sifariş etdiyi nömrə</label>
+            @Html.EditorFor(model => model.OrderedPhoneNumber, new { htmlAttributes = new { @placeholder = "Sifariş etdiyi nömrə" } })
             @Html.ValidationMessageFor(model => model.OrderedPhoneNumber, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-items">
+        <div class="item">
+            <label>Şəhər</label>
+            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @placeholder = "Şəhər" } })
             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.District, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.District, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="item">
+            <label>Rayon</label>
+            @Html.EditorFor(model => model.District, new { htmlAttributes = new { @placeholder = "Rayon" } })
             @Html.ValidationMessageFor(model => model.District, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+    <div class="form-items">
+        <div class="item">
+            <label>Ünvan</label>
+            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @placeholder = "Metro, küç., bina, blok, mənzil, mərtəbə" } })
             @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Manager, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.ManagerId, (IEnumerable<SelectListItem>)ViewBag.Managers, null, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Vendor, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(m => m.VendorId, (IEnumerable<SelectListItem>)ViewBag.Vendors, null, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.NumberPrice, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.NumberPrice, new { htmlAttributes = new { @class = "form-control" } })
+        <div class="item">
+            <label>Nömrənin qiyməti</label>
+            @Html.EditorFor(model => model.NumberPrice, new { htmlAttributes = new { placeholder = "Nömrənin qiyməti" } })
             @Html.ValidationMessageFor(model => model.NumberPrice, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.CustomerInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.CustomerInfo, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.CustomerInfo, "", new { @class = "text-danger" })
+    <div class="form-items">
+        <div class="item">
+            <label>Satıcının adı</label>
+            @Html.DropDownListFor(m => m.VendorId, (IEnumerable<SelectListItem>)ViewBag.Vendors, null, new { @class = "form-control" })
         </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.DeliveryTime, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        <div class="item">
+            <label>Çatdırılma vaxtı</label>
             @Html.TextBoxFor(x => x.DeliveryTime, "{0:yyyy-MM-ddTHH:mm:ss}", new
-                      {
-                          @class = "form-control",
-                          required = "required",
-                          @type = "datetime-local"
-                      })
-            @*@Html.EditorFor(model => model.DeliveryTime, new { htmlAttributes = new { Value = Model.DeliveryTime.ToString("yyyy-MM-ddTHH:mm"), @class = "form-control date-picker", @type = "datetime-local" } })*@
+               {
+                   @placeholder = "Çatdırılma vaxtı",
+                   required = "required",
+                   @type = "datetime-local"
+               })
             @Html.ValidationMessageFor(model => model.DeliveryTime, "", new { @class = "text-danger" })
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+    <div class="form-items">
+        <div class="item">
+            <label>Müştərinin adı, soyadı və atasının adı</label>
+            @Html.EditorFor(model => model.CustomerInfo, new { htmlAttributes = new { @placeholder = "Müştərinin adı, soyadı və atasının adı" } })
+            @Html.ValidationMessageFor(model => model.CustomerInfo, "", new { @class = "text-danger" })
+        </div>
+        <div class="item">
+            <label>Menecer</label>
+            @Html.DropDownListFor(m => m.ManagerId, (IEnumerable<SelectListItem>)ViewBag.Managers)
         </div>
     </div>
+
+    <input type="submit" value="Sifarişi yadda saxla">
 </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

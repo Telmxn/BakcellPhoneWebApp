@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -19,13 +20,6 @@ namespace BakcellPhoneWebApp.Controllers
         public OrdersController()
         {
             _db = new ApplicationDbContext();
-        }
-        // GET: Orders
-        [Authorize(Roles = "Admin")]
-        public ActionResult Index()
-        {
-            var Orders = _db.Orders.ToList();
-            return View(Orders);
         }
 
         [Authorize(Roles = "Admin")]
@@ -213,6 +207,8 @@ namespace BakcellPhoneWebApp.Controllers
         {
             var userid = User.Identity.GetUserId();
             var Orders = _db.Orders.Where(x=>x.ManagerId==userid).ToList();
+            ApplicationUser currentUser = _db.Users.FirstOrDefault(x => x.Id == userid);
+            ViewBag.Balance = currentUser.Balance;
             return View(Orders);
         }
 
@@ -221,6 +217,8 @@ namespace BakcellPhoneWebApp.Controllers
         {
             var userid = User.Identity.GetUserId();
             var Orders = _db.Orders.Where(x => x.VendorId == userid && x.Status == OrderStatus.Çatdırıldı).ToList();
+            ApplicationUser currentUser = _db.Users.FirstOrDefault(x => x.Id == userid);
+            ViewBag.Balance = currentUser.Balance;
             return View(Orders);
         }
 
@@ -361,25 +359,17 @@ namespace BakcellPhoneWebApp.Controllers
 
         // GET: Orders/Delete/5
         [Authorize(Roles = "Admin")]
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int id)
         {
-            var order = _db.Orders.Find(id);
+            var order = await _db.Orders.FindAsync(id);
             if (order == null)
             {
                 HttpNotFound();
             }
-            return View(order);
-        }
-
-        // POST: Orders/Delete/5
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public ActionResult Delete(Order order)
-        {
-            var myorder = _db.Orders.Find(order.Id);
+            var myorder = await _db.Orders.FindAsync(order.Id);
             _db.Orders.Remove(myorder);
-            _db.SaveChanges();
-            return RedirectToAction("Index");
+            await _db.SaveChangesAsync();
+            return RedirectToAction("SentOrders","Home");
         }
     }
 }

@@ -71,16 +71,15 @@ namespace BakcellPhoneWebApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult EditManager(string username)
+        public ActionResult EditManager(string id)
         {
             ApplicationUser appUser = new ApplicationUser();
-            appUser = UserManager.FindByName(username);
+            appUser = UserManager.FindById(id);
             ManagerEdit user = new ManagerEdit();
             user.Id = appUser.Id;
             user.UserName = appUser.UserName;
             user.Name = appUser.Name;
             user.Surname = appUser.Surname;
-            user.Balance = appUser.Balance;
 
             return View(user);
         }
@@ -92,17 +91,16 @@ namespace BakcellPhoneWebApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult EditVendor(string username)
+        public ActionResult EditVendor(string id)
         {
             ApplicationUser appUser = new ApplicationUser();
-            appUser = UserManager.FindByName(username);
+            appUser = UserManager.FindById(id);
             VendorEdit user = new VendorEdit();
             user.Id = appUser.Id;
             user.UserName = appUser.UserName;
             user.Name = appUser.Name;
             user.PhoneNumber = appUser.PhoneNumber;
             user.Surname = appUser.Surname;
-            user.Balance = appUser.Balance;
 
             return View(user);
         }
@@ -121,7 +119,6 @@ namespace BakcellPhoneWebApp.Controllers
             currentUser.Name = model.Name;
             currentUser.Surname = model.Surname;
             currentUser.UserName = model.UserName;
-            currentUser.Balance = model.Balance;
             if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
             {
                 await manager.UpdateAsync(currentUser);
@@ -147,7 +144,6 @@ namespace BakcellPhoneWebApp.Controllers
             currentUser.Name = model.Name;
             currentUser.Surname = model.Surname;
             currentUser.UserName = model.UserName;
-            currentUser.Balance = model.Balance;
             if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
             {
                 await manager.UpdateAsync(currentUser);
@@ -167,10 +163,10 @@ namespace BakcellPhoneWebApp.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public ActionResult EditCourier(string username)
+        public ActionResult EditCourier(string id)
         {
             Courier appUser = new Courier();
-            appUser = (Courier)UserManager.FindByName(username);
+            appUser = (Courier)UserManager.FindById(id);
             CourierEdit user = new CourierEdit();
             user.Id = appUser.Id;
             user.TgUsername = appUser.TgUsername;
@@ -178,7 +174,6 @@ namespace BakcellPhoneWebApp.Controllers
             user.UserName = appUser.UserName;
             user.Name = appUser.Name;
             user.Surname = appUser.Surname;
-            user.Balance = appUser.Balance;
 
             return View(user);
         }
@@ -199,7 +194,6 @@ namespace BakcellPhoneWebApp.Controllers
             currentUser.Name = model.Name;
             currentUser.Surname = model.Surname;
             currentUser.UserName = model.UserName;
-            currentUser.Balance = model.Balance;
             if (_db.Users.Where(x => x.UserName == currentUser.UserName).FirstOrDefault().Id == currentUser.Id)
             {
                 await manager.UpdateAsync(currentUser);
@@ -382,7 +376,7 @@ namespace BakcellPhoneWebApp.Controllers
 
                     await UserManager.AddToRoleAsync(user.Id, "Kuryer");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Couriers", "Account");
                 }
                 AddErrors(result);
             }
@@ -423,7 +417,7 @@ namespace BakcellPhoneWebApp.Controllers
 
                     await UserManager.AddToRoleAsync(user.Id, "Satıcı");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Vendors", "Account");
                 }
                 AddErrors(result);
             }
@@ -464,7 +458,7 @@ namespace BakcellPhoneWebApp.Controllers
 
                     await UserManager.AddToRoleAsync(user.Id, "Menecer");
 
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Managers", "Account");
                 }
                 AddErrors(result);
             }

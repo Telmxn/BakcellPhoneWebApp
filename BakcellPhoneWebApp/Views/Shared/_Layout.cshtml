@@ -19,8 +19,8 @@
                 <li>@Html.ActionLink("Təsdiqlənməmiş sifarişlər", "WaitingOrders", "Home")</li>
                 <li>
                     <div class="dropdown">
-                        <button class="dropbtn">İstifadəçilər</button>
-                        <div class="dropdown-content">
+                        <button class="dropbtn" onclick="dropdwn()" >İstifadəçilər</button>
+                        <div class="dropdown-content" id="drpcnt">
                             @Html.ActionLink("Menecerlər", "Managers", "Account")
                             @Html.ActionLink("Kuryerlər", "Couriers", "Account")
                             @Html.ActionLink("Satıcılar", "Vendors", "Account")

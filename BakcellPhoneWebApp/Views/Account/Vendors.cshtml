@@ -31,7 +31,7 @@
                     <td data-title="İstifadəçi ad">@item.UserName</td>
                     <td data-title="Balans">@item.Balance</td>
                     <td data-title="Sil"><a onclick="return confirm('İstifadəçi silinsin?');" href="@Url.Action("DeleteVendor", "Account", new { id = item.Id })"><img src="~/Content/img/delete-icon.svg"></a></td>
-                    <td data-title="Redaktə et"><a href="@Url.Action("EditVendor", "Account", new { username = item.UserName })"><img src="~/Content/img/edit-icon.svg"></a></td>
+                    <td data-title="Redaktə et"><a href="@Url.Action("EditVendor", "Account", new { id = item.Id })"><img src="~/Content/img/edit-icon.svg"></a></td>
                 </tr>
             }
         </tbody>

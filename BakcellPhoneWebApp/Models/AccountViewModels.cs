@@ -137,10 +137,6 @@ namespace BakcellPhoneWebApp.Models
 
         [Display(Name = "Soyad")]
         public string Surname { get; set; }
-
-
-        [Display(Name = "Balans")]
-        public decimal Balance { get; set; }
     }
 
     public class VendorEdit
@@ -159,9 +155,6 @@ namespace BakcellPhoneWebApp.Models
         [Phone]
         [Display(Name = "Telefon nömrəsi")]
         public string PhoneNumber { get; set; }
-
-        [Display(Name = "Balans")]
-        public decimal Balance { get; set; }
     }
 
     public class CourierEdit
@@ -179,9 +172,6 @@ namespace BakcellPhoneWebApp.Models
 
         [Display(Name = "Telegram istifadəçi adı")]
         public string TgUsername { get; set; }
-
-        [Display(Name = "Balans")]
-        public decimal Balance { get; set; }
 
         [Display(Name = "Ünvan")]
         public string Location { get; set; }

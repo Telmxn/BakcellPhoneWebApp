@@ -12,6 +12,10 @@
     @foreach (var item in Model)
     {
     <section class="card">
+        <a onclick="return confirm('Sifariş silinsin?');" href="@Url.Action("Delete", "Orders", new { id = item.Id })">
+            <div class="card-dlt-btn">
+            </div>
+        </a>
         <div class="card-body">
             <div class="card-items">
                 <div class="card-title">Müştəri :</div>

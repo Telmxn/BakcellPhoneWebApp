@@ -4,6 +4,11 @@ function menufunc(_this) {
     _this.classList.toggle("act");
   }
 
-  function confirmFunction() {
+function confirmFunction() {
     confirm("İstifadəçi silinsin?");
-  }
+}
+
+function dropdwn() {
+    var drpdwn = document.getElementById("drpcnt");
+    drpdwn.classList.toggle("drpdwn-show");
+}

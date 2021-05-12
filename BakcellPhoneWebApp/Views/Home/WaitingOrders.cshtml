@@ -78,7 +78,7 @@
     </style>
 }
 
-<h1 class="big-title">Təstiqlənməmiş sifarişlər</h1>
+<h1 class="big-title">Təsdiqlənməmiş sifarişlər</h1>
 
 <div class="card-container">
     @foreach (var item in Model)
@@ -140,10 +140,8 @@
 
         function showPopup(elm) {
             var modalImg = document.getElementById("img01");
-            var captionText = document.getElementById("caption");
             modal.style.display = "block";
             modalImg.src = elm.src;
-            captionText.innerHTML = elm.alt;
         }
 
         var span = document.getElementsByClassName("close")[0];

@@ -99,13 +99,19 @@
 }
 
 .card-dlt-btn {
+    visibility: hidden;
     height: 19px;
     width: 30px;
-    position: absolute;
-    right: 24px;
-    top: 9.5px;
+    position: relative;
+    right: 13px;
+    top: 15px;
+    float: right;
     z-index: 101;
     display: block;
+}
+
+.card:hover .card-dlt-btn {
+    visibility: visible;
 }
 
 .card-dlt-btn:after,

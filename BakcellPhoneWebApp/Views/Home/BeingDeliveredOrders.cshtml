@@ -14,7 +14,7 @@
             padding: 0;
         }
 
-            .card-footer button {
+            .card-footer input[type=button] {
                 background-color: #2db504;
                 width: 100%;
                 height: inherit;
@@ -72,8 +72,6 @@
             <div class="card-footer">
                 <input type='file' onchange='UploadImage(this)' style="display: none" id="@item.Id" class="fileupload" />
                 <input type="button" id="@item.Id+btnUpload" class="btnupload" value="Çatdırıldı" />
-                <input id="img" type="file">
-                <button for="img">Çatırdırıldı</button>
             </div>
         </section>
     }
