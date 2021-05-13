@@ -129,9 +129,6 @@ namespace BakcellPhoneWebApp.Models
     {
         public string Id { get; set; }
 
-        [Display(Name = "İstifadəçi adı")]
-        public string UserName { get; set; }
-
         [Display(Name = "Ad")]
         public string Name { get; set; }
 
@@ -142,9 +139,6 @@ namespace BakcellPhoneWebApp.Models
     public class VendorEdit
     {
         public string Id { get; set; }
-
-        [Display(Name = "İstifadəçi adı")]
-        public string UserName { get; set; }
 
         [Display(Name = "Ad")]
         public string Name { get; set; }
@@ -160,9 +154,6 @@ namespace BakcellPhoneWebApp.Models
     public class CourierEdit
     {
         public string Id { get; set; }
-
-        [Display(Name = "İstifadəçi adı")]
-        public string UserName { get; set; }
 
         [Display(Name = "Ad")]
         public string Name { get; set; }

@@ -38,16 +38,11 @@
     @Html.LabelFor(m => m.Surname)
     @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
 
-    @Html.LabelFor(m => m.UserName)
-    @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
-
     @Html.LabelFor(m => m.TgUsername)
     @Html.TextBoxFor(m => m.TgUsername, new { @placeholder = "Telegram istifadəçi adı" })
 
     @Html.LabelFor(m => m.Location)
     @Html.TextBoxFor(m => m.Location, new { @placeholder = "Ünvan" })
-
-    <label class="label-danger">@ViewBag.Error</label>
 
     <input type="submit" value="Yadda saxla">
 }
