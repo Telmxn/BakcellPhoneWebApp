@@ -3,60 +3,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BakcellPhoneWebApp.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "Elektron ünvan")]
-        public string Email { get; set; }
-    }
-
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
-
-    public class SendCodeViewModel
-    {
-        public string SelectedProvider { get; set; }
-        public ICollection<System.Web.Mvc.SelectListItem> Providers { get; set; }
-        public string ReturnUrl { get; set; }
-        public bool RememberMe { get; set; }
-    }
-
-    public class VerifyCodeViewModel
-    {
-        [Required]
-        public string Provider { get; set; }
-
-        [Required]
-        [Display(Name = "Code")]
-        public string Code { get; set; }
-        public string ReturnUrl { get; set; }
-
-        [Display(Name = "Bu brauzeri xatırla?")]
-        public bool RememberBrowser { get; set; }
-
-        public bool RememberMe { get; set; }
-    }
-
-    public class ForgotViewModel
-    {
-        [Required]
-        [Display(Name = "Elektron ünvan")]
-        public string Email { get; set; }
-    }
-
     public class LoginViewModel
     {
         [Display(Name = "Elektron ünvan")]
         [EmailAddress]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "İstifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "İstifadəçi adı")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
         [DataType(DataType.Password)]
         [Display(Name = "Şifrə")]
         public string Password { get; set; }
@@ -71,12 +28,12 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Elektron ünvan")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "İstifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "İstifadəçi adı")]
         public string UserName { get; set; }
 
 
-        [Required]
+        [Required(ErrorMessage = "Rol sahəsi tələb olunur.")]
         [Display(Name = "Rol")]
         public string UserType { get; set; }
 
@@ -85,7 +42,7 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Telefon nömrəsi")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
         [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Şifrə")]
@@ -109,11 +66,11 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Telefon nömrəsi")]
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "İstifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "İstifadəçi adı")]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
         [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Şifrə")]
@@ -170,7 +127,7 @@ namespace BakcellPhoneWebApp.Models
 
     public class ManagerViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "İstifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "İstifadəçi adı")]
         public string UserName { get; set; }
 
@@ -180,7 +137,7 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Soyad")]
         public string Surname { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
         [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Şifrə")]
@@ -194,7 +151,7 @@ namespace BakcellPhoneWebApp.Models
 
     public class CourierViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "İstifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "İstifadəçi adı")]
         public string UserName { get; set; }
 
@@ -207,11 +164,11 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Ünvan")]
         public string Location { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Telegram istifadəçi adı sahəsi tələb olunur.")]
         [Display(Name = "Telegram istifadəçi adı")]
         public string TgUsername { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Şifrə sahəsi tələb olunur.")]
         [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Şifrə")]
@@ -221,34 +178,5 @@ namespace BakcellPhoneWebApp.Models
         [Display(Name = "Şifrəni təsdiq edin")]
         [Compare("Password", ErrorMessage = "Şifrə və təsdiq şifrəsi uyğun gəlmir.")]
         public string ConfirmPassword { get; set; }
-    }
-
-    public class ResetPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Elektron ünvan")]
-        public string Email { get; set; }
-
-        [Required]
-        [StringLength(100, ErrorMessage = "{0} ən azı {2} simvol olmalıdır.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Şifrə")]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Şifrəni təsdiq edin")]
-        [Compare("Password", ErrorMessage = "Şifrə və təsdiq şifrəsi uyğun gəlmir.")]
-        public string ConfirmPassword { get; set; }
-
-        public string Code { get; set; }
-    }
-
-    public class ForgotPasswordViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Elektron ünvan")]
-        public string Email { get; set; }
     }
 }

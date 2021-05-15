@@ -20,19 +20,21 @@
                 <th scope="col">Balans</th>
                 <th scope="col">Sil</th>
                 <th scope="col">Redaktə et</th>
+                <th scope="col">Sıfırla</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <th scope="row">@item.Name</th>
-                    <td data-title="Soyad">@item.Surname</td>
-                    <td data-title="İstifadəçi ad">@item.UserName</td>
-                    <td data-title="Balans">@item.Balance</td>
-                    <td data-title="Sil"><a onclick="return confirm('İstifadəçi silinsin?');" href="@Url.Action("DeleteVendor", "Account", new { id = item.Id })"><img src="~/Content/img/delete-icon.svg"></a></td>
-                    <td data-title="Redaktə et"><a href="@Url.Action("EditVendor", "Account", new { id = item.Id })"><img src="~/Content/img/edit-icon.svg"></a></td>
-                </tr>
+            <tr>
+                <th scope="row">@item.Name</th>
+                <td data-title="Soyad">@item.Surname</td>
+                <td data-title="İstifadəçi ad">@item.UserName</td>
+                <td data-title="Balans">@item.Balance</td>
+                <td data-title="Sil"><a onclick="return confirm('İstifadəçi silinsin?');" href="@Url.Action("DeleteVendor", "Account", new { id = item.Id })"><img src="~/Content/img/delete-icon.svg"></a></td>
+                <td data-title="Redaktə et"><a href="@Url.Action("EditVendor", "Account", new { id = item.Id })"><img src="~/Content/img/edit-icon.svg"></a></td>
+                <td data-title="Sıfırla"><a onclick="return confirm('Balans sıfırlansın?');" href="@Url.Action("BalanceDelete", "Account", new { id = item.Id })"><img src="~/Content/img/loop_black_24dp.svg"></a></td>
+            </tr>
             }
         </tbody>
     </table>

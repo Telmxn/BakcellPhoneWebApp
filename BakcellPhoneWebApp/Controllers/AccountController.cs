@@ -189,7 +189,7 @@ namespace BakcellPhoneWebApp.Controllers
             var user = await _db.Vendors.FindAsync(id);
             _db.Vendors.Remove(user);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public async Task<ActionResult> DeleteCourier(string id)
@@ -197,7 +197,7 @@ namespace BakcellPhoneWebApp.Controllers
             var user = await _db.Couriers.FindAsync(id);
             _db.Couriers.Remove(user);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         public async Task<ActionResult> DeleteManager(string id)
@@ -205,7 +205,19 @@ namespace BakcellPhoneWebApp.Controllers
             var user = await _db.Managers.FindAsync(id);
             _db.Managers.Remove(user);
             await _db.SaveChangesAsync();
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        public async Task<ActionResult> BalanceDelete(string id)
+        {
+            var store = new UserStore<ApplicationUser>(_db);
+            var manager = new UserManager<ApplicationUser>(store);
+            var currentUser = manager.FindById(id);
+            currentUser.Balance = 0;
+            await manager.UpdateAsync(currentUser);
+            var ctx = store.Context;
+            ctx.SaveChanges();
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         //

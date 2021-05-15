@@ -15,59 +15,65 @@
 <div class="card-container">
     @foreach (var item in Model)
     {
-        <section class="card">
-            <div class="card-body">
-                <div class="card-items">
-                    <div class="card-title">Müştəri :</div>
-                    <span class="card-info">@item.CustomerInfo</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Satıcı :</div>
-                    <span class="card-info">@item.Vendor.Name @item.Vendor.Surname</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Sifariş etdiyi nömrə :</div>
-                    <span class="card-info">@item.OrderedPhoneNumber</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Qiyməti :</div>
-                    <span class="card-info">@item.NumberPrice</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Əlaqə nömrəsi :</div>
-                    <span class="card-info">@item.CustomerPhoneNumber</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Menecer :</div>
-                    <span class="card-info">@item.Manager.Name @item.Manager.Surname</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Ünvan :</div>
-                    <span class="card-info">@item.Address</span>
-                </div>
-                <div class="card-items">
-                    <div class="card-title">Çatdırılma vaxtı :</div>
-                    <span class="card-info">@item.DeliveryTime.Value.ToString("dd.MM.yyyy hh:mm")</span>
-                </div>
+    <section class="card">
+        <div class="card-body">
+            <div class="card-items">
+                <div class="card-title">Müştəri :</div>
+                <span class="card-info">@item.CustomerInfo</span>
             </div>
-            @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Çatdırıldı)
-            {
-                <div class="card-footer">
-                    <span>Çatdırıldı</span>
-                </div>
-            }
-            @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Yolda)
-            {
-                <div class="card-footer" style="background-color: #f5b53d;">
-                    <span>Yolda</span>
-                </div>
-            }
-            @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Gözləmədə)
-            {
-                <div class="card-footer" style="background-color: #a8a8a8;">
-                    <span>Gözləmədə</span>
-                </div>
-            }
-        </section>
+            <div class="card-items">
+                <div class="card-title">Satıcı :</div>
+                <span class="card-info">@item.Vendor.Name @item.Vendor.Surname</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Sifariş etdiyi nömrə :</div>
+                <span class="card-info">@item.OrderedPhoneNumber</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Qiyməti :</div>
+                <span class="card-info">@item.NumberPrice</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Əlaqə nömrəsi :</div>
+                <span class="card-info">@item.CustomerPhoneNumber</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Menecer :</div>
+                <span class="card-info">@item.Manager.Name @item.Manager.Surname</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Ünvan :</div>
+                <span class="card-info">@item.Address</span>
+            </div>
+            <div class="card-items">
+                <div class="card-title">Çatdırılma vaxtı :</div>
+                <span class="card-info">@item.DeliveryTime.Value.ToString("dd.MM.yyyy hh:mm")</span>
+            </div>
+        </div>
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Çatdırıldı)
+        {
+            <div class="card-footer">
+                <span>Çatdırıldı</span>
+            </div>
+        }
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Yolda)
+        {
+            <div class="card-footer" style="background-color: #f5b53d;">
+                <span>Yolda</span>
+            </div>
+        }
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Yoxlanılır)
+        {
+            <div class="card-footer" style="background-color: #a8a8a8;">
+                <span>Yoxlanılır</span>
+            </div>
+        }
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Gözləmədə)
+        {
+            <div class="card-footer" style="background-color: #a8a8a8;">
+                <span>Gözləmədə</span>
+            </div>
+        }
+    </section>
     }
 </div>

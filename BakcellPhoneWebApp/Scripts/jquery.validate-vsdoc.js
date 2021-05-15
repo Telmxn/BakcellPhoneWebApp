@@ -315,23 +315,23 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
-		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
-		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
-		digits: "Please enter only digits.",
-		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Please enter the same value again.",
-		accept: "Please enter a value with a valid extension.",
-		maxlength: $.validator.format("Please enter no more than {0} characters."),
-		minlength: $.validator.format("Please enter at least {0} characters."),
-		rangelength: $.validator.format("Please enter a value between {0} and {1} characters long."),
-		range: $.validator.format("Please enter a value between {0} and {1}."),
-		max: $.validator.format("Please enter a value less than or equal to {0}."),
-		min: $.validator.format("Please enter a value greater than or equal to {0}.")
+		required: "Bu xananın doldurulması məcburidir.",
+		remote: "Zəhmət olmasa bu xananı düzəldin.",
+		email: "Zəhmət olmasa etibarlı bir e-poçt ünvanı daxil edin.",
+		url: "Zəhmət olmasa düzgün URL daxil edin.",
+		date: "Zəhmət olmasa etibarlı bir tarix daxil edin.",
+		dateISO: "Zəhmət olmasa etibarlı bir tarix daxil edin. (ISO).",
+		number: "Zəhmət olmasa etibarlı bir nömrə daxil edin.",
+		digits: "Zəhmət olmasa yalnız rəqəmlər daxil edin.",
+		equalTo: "Zəhmət olmasa eyni dəyəri yenidən daxil edin.",
+		creditcard: "Zəhmət olmasa etibarlı bir kredit kartı nömrəsi daxil edin.",
+		accept: "Zəhmət olmasa etibarlı bir uzantı ilə bir dəyər daxil edin.",
+		maxlength: $.validator.format("Zəhmət olmasa {0} simvoldan çox olmamaqla daxil edin."),
+		minlength: $.validator.format("Zəhmət olmasa ən azı {0} simvol daxil edin."),
+		rangelength: $.validator.format("Zəhmət olmasa {0} ilə {1} simvol arasında bir dəyər daxil edin."),
+		range: $.validator.format("Zəhmət olmasa {0} - {1} arasında bir dəyər daxil edin."),
+		max: $.validator.format("Zəhmət olmasa {0} -dən az və ya bərabər bir dəyər daxil edin."),
+		min: $.validator.format("Zəhmət olmasa {0} -dən böyük və ya bərabər bir dəyər daxil edin.")
 	},
 	
 	autoCreateRanges: false,
@@ -657,7 +657,7 @@ $.extend($.validator, {
 				// title is never undefined, so handle empty string as undefined
 				!this.settings.ignoreTitle && element.title || undefined,
 				$.validator.messages[method],
-				"<strong>Warning: No message defined for " + element.name + "</strong>"
+				"<strong> Xəbərdarlıq: " + element.name + " üçün bir mesaj təyin edilməyib.</strong>"
 			);
 		},
 		

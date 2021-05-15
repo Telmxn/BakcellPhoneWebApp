@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="~/Content/partial.css">
+    <link rel="stylesheet" href="~/Content/index.css">
     <style>
         body {
             height: 100vh;
@@ -68,8 +68,7 @@
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "login-form", role = "form" }))
         {
             @Html.AntiForgeryToken()
-            <h1 class="big-title m-bottom-20">Giriş</h1>
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <h1 class="big-title">Giriş</h1>
 
             @Html.LabelFor(m => m.UserName)
             @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })

@@ -34,15 +34,19 @@
 
     @Html.LabelFor(m => m.Name)
     @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Surname)
     @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+    @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.TgUsername)
     @Html.TextBoxFor(m => m.TgUsername, new { @placeholder = "Telegram istifadəçi adı" })
+    @Html.ValidationMessageFor(m => m.TgUsername, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Location)
     @Html.TextBoxFor(m => m.Location, new { @placeholder = "Ünvan" })
+    @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
 
     <input type="submit" value="Yadda saxla">
 }

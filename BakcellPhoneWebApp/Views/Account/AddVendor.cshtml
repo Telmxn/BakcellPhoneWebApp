@@ -32,22 +32,28 @@
 
     @Html.LabelFor(m => m.Name)
     @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Surname)
     @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+    @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.UserName)
     @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
+    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
 
 
     @Html.LabelFor(m => m.PhoneNumber)
     @Html.TextBoxFor(m => m.PhoneNumber, new { @placeholder = "Telefon nömrəsi" })
+    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Password)
     @Html.PasswordFor(m => m.Password, new { @placeholder = "Şifrə" })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.ConfirmPassword)
     @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Təkrar şifrə" })
+    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
 
     <input type="submit" value="Əlavə et">
 }

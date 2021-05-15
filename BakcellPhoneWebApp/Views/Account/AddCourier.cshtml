@@ -30,28 +30,33 @@
     @Html.AntiForgeryToken()
     <h1 class="big-title">Kuryer əlavə et</h1>
 
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-
     @Html.LabelFor(m => m.Name)
     @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Surname)
     @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+    @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.UserName)
     @Html.TextBoxFor(m => m.UserName, new { @placeholder = "İstifadəçi adı" })
+    @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.TgUsername)
     @Html.TextBoxFor(m => m.TgUsername, new { @placeholder = "Telegram istifadəçi adı" })
+    @Html.ValidationMessageFor(m => m.TgUsername, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Location)
     @Html.TextBoxFor(m => m.Location, new { @placeholder = "Ünvan" })
+    @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Password)
     @Html.PasswordFor(m => m.Password, new { @placeholder = "Şifrə" })
+    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.ConfirmPassword)
     @Html.PasswordFor(m => m.ConfirmPassword, new { @placeholder = "Təkrar şifrə" })
+    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
 
     <input type="submit" value="Əlavə et">
 }

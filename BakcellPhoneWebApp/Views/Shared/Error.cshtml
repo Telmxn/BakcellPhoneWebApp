@@ -2,8 +2,68 @@
 
 @{
     ViewBag.Title = "Error";
+    Layout = null;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/partial.css">
+    <link rel="stylesheet" href="css/ordercard.css">
+    <title>Göndərilən sifarişlər</title>
+    <style>
+        .error-cont {
+            box-shadow: 0 16px 50px #7090B033;
+            -webkit-box-shadow: 0 16px 50px #7090B033;
+            -moz-box-shadow: 0 16px 50px #7090B033;
+            background-color: white;
+            border-radius: 30px;
+            height: auto;
+            max-width: 900px;
+            width: 90%;
+            margin: 3% auto;
+            padding: 25px 25px 40px;
+        }
+
+        h1 {
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-weight: 600;
+            color: grey;
+            margin-bottom: 20px;
+        }
+
+        a {
+            border-radius: 3px;
+            padding: 6px 20px;
+            border: 1.5px solid var(--blue);
+            color: var(--blue);
+            font-weight: 600;
+        }
+
+            a:hover {
+                color: var(--white);
+                background-color: var(--blue);
+            }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="error-cont">
+            <h1>Burada bir şey səhvdir.</h1>
+            <p>Axtardığınız səhifəni tapa bilmirik. Evə qayıdın</p>
+            <a href="@Url.Action("Index","Home")">Home</a>
+        </div>
+    </div>
+</body>
+
+</html>
 

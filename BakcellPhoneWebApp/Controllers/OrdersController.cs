@@ -161,7 +161,7 @@ namespace BakcellPhoneWebApp.Controllers
 
         [HttpPost]
         [Authorize(Roles = "Kuryer")]
-        public ActionResult DeliveredStatus(int id)
+        public JsonResult DeliveredStatus(int id)
         {
             var order = _db.Orders.Find(id);
             if (order == null)
@@ -216,7 +216,7 @@ namespace BakcellPhoneWebApp.Controllers
         public ActionResult OrderList()
         {
             var userid = User.Identity.GetUserId();
-            var Orders = _db.Orders.Where(x => x.VendorId == userid && x.Status == OrderStatus.Çatdırıldı).ToList();
+            var Orders = _db.Orders.Where(x=>x.VendorId == userid).ToList();
             ApplicationUser currentUser = _db.Users.FirstOrDefault(x => x.Id == userid);
             ViewBag.Balance = currentUser.Balance;
             return View(Orders);
@@ -274,7 +274,7 @@ namespace BakcellPhoneWebApp.Controllers
                 var token = "1798612318:AAE3L9DaxUpym5i0IH2dBxOEAmfHYoz1uaM";
                 var chat_id = "-1001178088564";
                 string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
-                var link = baseUrl + "Home/SentOrders";
+                var link = baseUrl + "Home/PendingOrders";
                 var user = _db.Managers.Find(order.ManagerId);
 
                 var text = "<b> Yeni sifariş </b>: %0A - <b> Menecer:</b><i> " + user.Name + " " + user.Surname + " </i> %0A - <b> Link:</b><i> " + link + " </i>";

@@ -170,3 +170,8 @@
         float: unset;
     }
 }
+@media screen and (max-width: 340px) {
+    .card-footer a {
+        font-size: 12px !important;
+    }
+}

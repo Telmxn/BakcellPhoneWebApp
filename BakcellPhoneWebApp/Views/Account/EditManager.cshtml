@@ -31,11 +31,15 @@
     <h1 class="big-title">Menecer redaktə et</h1>
     @Html.HiddenFor(model => model.Id)
 
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
     @Html.LabelFor(m => m.Name)
     @Html.TextBoxFor(m => m.Name, new { @placeholder = "Ad" })
+    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
 
     @Html.LabelFor(m => m.Surname)
     @Html.TextBoxFor(m => m.Surname, new { @placeholder = "Soyad" })
+    @Html.ValidationMessageFor(m => m.Surname, "", new { @class = "text-danger" })
 
     <input type="submit" value="Yadda saxla">
 }

@@ -12,7 +12,7 @@
     @foreach (var item in Model)
     {
     <section class="card">
-        <a onclick="return confirm('Sifariş silinsin?');" href="@Url.Action("Delete", "Orders", new { id = item.Id })">
+        <a onclick="return confirm('Sifariş silinsin?');" style="padding: 5px 0 0;" href="@Url.Action("Delete", "Orders", new { id = item.Id })">
             <div class="card-dlt-btn">
             </div>
         </a>
@@ -59,7 +59,7 @@
         @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Çatdırıldı)
         {
             <div class="card-footer">
-                <span>Çatırdırıldı</span>
+                <span>Çatdırıldı</span>
             </div>
         }
     </section>

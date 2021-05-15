@@ -221,6 +221,7 @@
   <ItemGroup>
     <Content Include="Content\img\delete-icon.svg" />
     <Content Include="Content\img\edit-icon.svg" />
+    <Content Include="Content\index.css" />
     <Content Include="Content\ordercard.css" />
     <Content Include="Content\partial.css" />
     <Content Include="Content\table.css" />

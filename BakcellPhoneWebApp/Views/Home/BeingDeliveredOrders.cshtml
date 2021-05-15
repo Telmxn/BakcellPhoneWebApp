@@ -15,6 +15,7 @@
         }
 
             .card-footer input[type=button] {
+                -webkit-appearance: none;
                 background-color: #2db504;
                 width: 100%;
                 height: inherit;
@@ -84,24 +85,51 @@
     });
     function UploadImage(elm) {
         var id = $(elm).attr("id");
-        var formdata = new FormData(); //FormData object
-        var fileInput = elm;
+        var file = elm.files[0];
+        var imageType = /image.*/;
 
-        //Iterating through each files selected in fileInput
-        for (i = 0; i < fileInput.files.length; i++) {
-            //Appending each file to FormData object
-            formdata.append(fileInput.files[i].name, fileInput.files[i]);
+        if (!file.type.match(imageType)) return;
+
+        var form_data = new FormData();
+        form_data.append('file', file);
+
+        for (var key of form_data.entries()) {
+            console.log(key[0] + ', ' + key[1]);
         }
-        //Creating an XMLHttpRequest and sending
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/Orders/DeliveredStatus/' + id);
-        xhr.send(formdata);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                alert(xhr.responseText);
+
+        $.ajax({
+            url: '/Orders/DeliveredStatus/' + id,
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'POST',
+            success: function (response) {
+                alert(response);
                 location.reload();
+            },
+            error: function (error) {
+                console.log(error);
             }
-        }
-        return false;
+        });
+
+
+        //var id = $(elm).attr("id");
+        //var formdata = new FormData(); //FormData object
+        //var fileInput = elm;
+
+        //formdata.append(fileInput.files[0].name, fileInput.files[i0);
+
+        ////Creating an XMLHttpRequest and sending
+        //var xhr = new XMLHttpRequest();
+        //xhr.open('POST', '/Orders/DeliveredStatus/' + id);
+        //xhr.send(formdata);
+        //xhr.onreadystatechange = function () {
+        //    if (xhr.readyState == 4 && xhr.status == 200) {
+        //        alert(xhr.responseText);
+        //        location.reload();
+        //    }
+        //}
+        //return false;
     };
 </script>

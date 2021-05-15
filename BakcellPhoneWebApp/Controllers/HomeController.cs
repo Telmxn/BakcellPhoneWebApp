@@ -19,10 +19,25 @@ namespace BakcellPhoneWebApp.Controllers
 
         public ActionResult Index()
         {
-            string currentUserId = User.Identity.GetUserId();
-            ApplicationUser currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
-            ViewBag.Balance = currentUser.Balance;
-            return View();
+            string baseUrl = Request.Url.Scheme + "://" + Request.Url.Authority + Request.ApplicationPath.TrimEnd('/') + "/";
+            string ReturnUrl;
+            if (User.IsInRole("Admin"))
+            {
+                ReturnUrl = baseUrl + "Home/PendingOrders";
+            }
+            else if (User.IsInRole("Menecer"))
+            {
+                ReturnUrl = baseUrl + "Orders/List";
+            }
+            else if (User.IsInRole("Satıcı"))
+            {
+                ReturnUrl = baseUrl + "Orders/OrderList";
+            }
+            else
+            {
+                ReturnUrl = baseUrl + "Home/BeingDeliveredOrders";
+            }
+            return Redirect(ReturnUrl);
         }
 
         [Authorize(Roles = "Admin")]

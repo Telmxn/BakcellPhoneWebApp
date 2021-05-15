@@ -62,6 +62,12 @@
                 <span>Yolda</span>
             </div>
         }
+        @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Yoxlanılır)
+        {
+            <div class="card-footer" style="background-color: #a8a8a8;">
+                <span>Yoxlanılır</span>
+            </div>
+        }
         @if (item.Status == BakcellPhoneWebApp.Models.OrderStatus.Gözləmədə)
         {
             <div class="card-footer" style="background-color: #a8a8a8;">
